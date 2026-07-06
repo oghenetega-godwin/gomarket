@@ -17,8 +17,9 @@ export function BalanceDisplay() {
 
   useEffect(() => {
     const solanaWallet = wallets[0];
+    const account = solanaWallet?.accounts?.[0];
 
-    if (!authenticated || !solanaWallet) {
+    if (!authenticated || !account) {
       setBalance(null);
       return;
     }
@@ -27,7 +28,7 @@ export function BalanceDisplay() {
     setIsLoading(true);
 
     const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
-    const publicKey = new PublicKey(solanaWallet.accounts[0].address);
+    const publicKey = new PublicKey(account.address);
 
     connection
       .getBalance(publicKey)

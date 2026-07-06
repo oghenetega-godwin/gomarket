@@ -8,10 +8,6 @@ interface ListingFormProps {
   onSuccess?: () => void;
 }
 
-/**
- * Manual listing creation form. Submits crop/quantity/unit/price/location
- * plus the farmer's wallet address to /api/listings.
- */
 export function ListingForm({ onSuccess }: ListingFormProps) {
   const { authenticated } = usePrivy();
   const { wallets } = useStandardWallets();
@@ -123,7 +119,7 @@ export function ListingForm({ onSuccess }: ListingFormProps) {
         </div>
 
         <div>
-          <label htmlFor="pricePerUnit" className="block text-sm font-medium text-zinc-400 mb-1">Price Per Unit</label>
+          <label htmlFor="pricePerUnit" className="block text-sm font-medium text-zinc-400 mb-1">Price Per Unit (SOL)</label>
           <input
             id="pricePerUnit"
             name="pricePerUnit"
@@ -134,7 +130,7 @@ export function ListingForm({ onSuccess }: ListingFormProps) {
             value={formData.pricePerUnit}
             onChange={handleChange}
             className="w-full px-4 py-2 bg-zinc-950 border border-zinc-700 rounded-lg text-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-            placeholder="e.g., 15000"
+            placeholder="e.g., 0.05"
           />
         </div>
 
@@ -164,6 +160,11 @@ export function ListingForm({ onSuccess }: ListingFormProps) {
       {message && (
         <div className={`mt-4 p-3 rounded-lg text-sm border ${message.type === "success" ? "bg-emerald-900/30 border-emerald-800 text-emerald-400" : "bg-red-900/30 border-red-800 text-red-400"}`}>
           {message.text}
+          {message.type === "success" && (
+            <a href="/marketplace" className="block mt-2 underline font-medium">
+              View in Marketplace →
+            </a>
+          )}
         </div>
       )}
     </div>
